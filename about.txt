@@ -1,0 +1,3 @@
+next.js
+tailwindcss
+add github repo
