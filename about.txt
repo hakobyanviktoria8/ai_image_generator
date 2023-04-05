@@ -1,3 +1,12 @@
 next.js
 tailwindcss
 add github repo
+apenai
+swr
+typescript
+aiimagegeneratorapp864
+https://ai-image-generator-app864.azurewebsites.net/
+
+azure
+
+aiimagegenerator864
