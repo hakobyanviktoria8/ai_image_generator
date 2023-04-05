@@ -14,6 +14,7 @@ export const PromtInput = () => {
   } = useSWR("/api/suggestion", fetchSuggestionChatGPT, {
     revalidateOnFocus: false,
   });
+  const loading = isLoading || isValidating;
 
   return (
     <div className="m-10">
@@ -21,7 +22,11 @@ export const PromtInput = () => {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter a prompt..."
+          placeholder={
+            (loading && "Loading suggestion...") ||
+            suggestion ||
+            "Enter a prompt..."
+          }
           className="flex-1 p-4 outline-none rounded-md"
         />
         <button
@@ -44,6 +49,7 @@ export const PromtInput = () => {
         <button
           type="button"
           className="p-4 bg-white text-gray-500 border-none transition-colors duration-200 rounded-b-md md:rounded-r-md md:rounded-bl-none font-bold"
+          onClick={mutate}
         >
           New Suggestion
         </button>
