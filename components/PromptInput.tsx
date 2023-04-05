@@ -54,6 +54,15 @@ export const PromtInput = () => {
           New Suggestion
         </button>
       </form>
+
+      {input && (
+        <p className="pt-2 pl-2 font-bold text-gray-500">
+          Suggestion:{" "}
+          <span className=" font-light">
+            {loading ? "Chat GPT is thinking..." : suggestion}
+          </span>
+        </p>
+      )}
     </div>
   );
 };
