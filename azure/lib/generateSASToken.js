@@ -15,7 +15,7 @@ const sharedKeyCredential = new StorageSharedKeyCredential(
 );
 
 const blobServiceClient = new BlobServiceClient(
-  `https"//${accountName}.blob.core.windows.net`,
+  `https://${accountName}.blob.core.windows.net`,
   sharedKeyCredential
 );
 
@@ -28,7 +28,7 @@ async function generateSASToken() {
   permissions.read = true;
 
   const expiryDate = new Date();
-  expiryData.setMinutes(expiryDate.getMinutes() + 30);
+  expiryDate.setMinutes(expiryDate.getMinutes() + 30);
 
   const sasToken = generateBlobSASQueryParameters(
     {
@@ -42,4 +42,4 @@ async function generateSASToken() {
   return sasToken;
 }
 
-module.exports = generateSASToken
+module.exports = generateSASToken;
