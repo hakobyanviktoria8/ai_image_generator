@@ -1,6 +1,6 @@
 export async function GET(request: Request) {
   const response = await fetch(
-    "http://localhost:7071/api/getSuggestionChatGPT",
+    "https://ai-image-generator-app864.azurewebsites.net/api/getsuggestionchatgpt",
     {
       cache: "no-store",
     }

@@ -46,7 +46,9 @@ export const Images = () => {
           >
             <div className="absolute flex justify-center items-center w-full h-full bg-white opacity-0 hover:opacity-80 transition-opacity duration-200 z-10">
               <p className="text-center font-light text-lg p-5">
-                {img.name.split("_").shift()?.toString().split(".").shift()}
+                {img.name.split("_").shift()?.slice(0, 50)?.length === 50
+                  ? img.name.split("_").shift()?.slice(0, 50).concat("...")
+                  : img.name.split("_").shift()}
               </p>
             </div>
             <Image
