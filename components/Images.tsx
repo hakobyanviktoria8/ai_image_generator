@@ -42,7 +42,7 @@ export const Images = () => {
         {images?.imageUrls?.map((img: ImageType) => (
           <div
             key={img.url}
-            className="relative cursor-help hover:scale-[103%] transition-transform duration-200 ease-in-out md:transform-none"
+            className="relative cursor-help md:overflow-x-hidden md:hover:scale-[0] hover:scale-[103%] transition-transform duration-200 ease-in-out"
           >
             <div className="absolute flex justify-center items-center w-full h-full bg-white opacity-0 hover:opacity-80 transition-opacity duration-200 z-10">
               <p className="text-center font-light text-lg p-5">
