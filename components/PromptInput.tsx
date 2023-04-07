@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import useSWR from "swr";
 import fetchSuggestionChatGPT from "@/lib/fetchSuggestionChatGPT";
+import toast from "react-hot-toast";
 
 export const PromtInput = () => {
   const [input, setInput] = useState("");
@@ -20,6 +21,8 @@ export const PromtInput = () => {
     console.log(11111111111111, inputPrompt);
     setInput("");
 
+    const notification = toast.loading(`DALL·E is creating...`);
+
     // p => prompt to send API
     const p = useSuggestion ? suggestion : inputPrompt;
 
@@ -32,6 +35,14 @@ export const PromtInput = () => {
     });
 
     const data = await res?.json();
+
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      toast.success(`Your AI Art has been Generated!`, {
+        id: notification,
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,6 +80,7 @@ export const PromtInput = () => {
           Generate
         </button>
         <button
+          onClick={() => submitPrompt(true)}
           type="button"
           className="p-4 bg-gray-400 text-white transition-colors duration-200 font-bold disabled:text-gray-300 disabled:cursor-not-allowed disabled:bg-gray-400"
         >
