@@ -14,11 +14,39 @@ export const PromtInput = () => {
   } = useSWR("/api/suggestion", fetchSuggestionChatGPT, {
     revalidateOnFocus: false,
   });
+
+  const submitPrompt = async (useSuggestion?: boolean) => {
+    const inputPrompt = input;
+    console.log(11111111111111, inputPrompt);
+    setInput("");
+
+    // p => prompt to send API
+    const p = useSuggestion ? suggestion : inputPrompt;
+
+    const res = await fetch("/api/generateImage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: p }),
+    });
+
+    const data = await res?.json();
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submitPrompt();
+  };
+
   const loading = isLoading || isValidating;
 
   return (
     <div className="m-10">
-      <form className="flex flex-col lg:flex-row shadow-md shadow-slate-400/10 border rounded-md lg:divide-x">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col lg:flex-row shadow-md shadow-slate-400/10 border rounded-md lg:divide-x"
+      >
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
