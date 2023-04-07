@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import fetchSuggestionChatGPT from "@/lib/fetchSuggestionChatGPT";
 import toast from "react-hot-toast";
+import fetchImages from "@/lib/fetchImages";
 
 export const PromtInput = () => {
   const [input, setInput] = useState("");
@@ -16,9 +17,12 @@ export const PromtInput = () => {
     revalidateOnFocus: false,
   });
 
+  const { mutate: updateImages } = useSWR("images", fetchImages, {
+    revalidateOnFocus: false,
+  });
+
   const submitPrompt = async (useSuggestion?: boolean) => {
     const inputPrompt = input;
-    console.log(11111111111111, inputPrompt);
     setInput("");
 
     const notification = toast.loading(`DALL·E is creating...`);
@@ -43,6 +47,8 @@ export const PromtInput = () => {
         id: notification,
       });
     }
+
+    updateImages();
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
