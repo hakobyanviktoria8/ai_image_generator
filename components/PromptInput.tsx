@@ -25,10 +25,15 @@ export const PromtInput = () => {
     const inputPrompt = input;
     setInput("");
 
-    const notification = toast.loading(`DALL·E is creating...`);
-
     // p => prompt to send API
     const p = useSuggestion ? suggestion : inputPrompt;
+
+    // create toast
+    const notificationPromptShort = p.slice(0, 20);
+
+    const notification = toast.loading(
+      `DALL·E is creating: ${notificationPromptShort}...`
+    );
 
     const res = await fetch("/api/generateImage", {
       method: "POST",
@@ -41,7 +46,9 @@ export const PromtInput = () => {
     const data = await res?.json();
 
     if (data.error) {
-      toast.error(data.error);
+      toast.error(data.error, {
+        id: notification,
+      });
     } else {
       toast.success(`Your AI Art has been Generated!`, {
         id: notification,
