@@ -10,3 +10,9 @@ https://ai-image-generator-app864.azurewebsites.net/
 azure
 
 aiimagegenerator864
+
+
+We have 3 variants
+- Generate button: write something and generate an image using that text
+- Use Suggestion: Chat GPT generate text, use this text to generate image|
+- New Suggestion: Generate a new suggestion
