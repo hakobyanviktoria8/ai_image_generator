@@ -1,14 +1,13 @@
 export async function GET(request: Request) {
-  const response = await fetch(
-    "http://localhost:7071/api/getSuggestionChatGPT",
-    {
-      cache: "no-store",
-    }
-  );
+  const response = await fetch("http://localhost:7071/api/getImages", {
+    cache: "no-store",
+  });
 
-  const textData = await response.text();
+  const blob = await response.blob();
+  const textData = await blob.text();
+  const data = JSON.parse(textData);
 
-  return new Response(JSON.stringify(textData.trim()), {
+  return new Response(JSON.stringify(data), {
     status: 200,
   });
 }
