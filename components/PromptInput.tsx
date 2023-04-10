@@ -23,17 +23,19 @@ export const PromtInput = () => {
 
   const submitPrompt = async (useSuggestion?: boolean) => {
     const inputPrompt = input;
+    console.log("inputPrompt______ ", inputPrompt);
     setInput("");
 
-    // p => prompt to send API
-    const p = useSuggestion ? suggestion : inputPrompt;
-
-    // create toast
-    const notificationPromptShort = p.slice(0, 20);
+    const notificationPrompt = inputPrompt || suggestion;
+    const notificationPromptShort = notificationPrompt.slice(0, 20);
 
     const notification = toast.loading(
       `DALL·E is creating: ${notificationPromptShort}...`
     );
+
+    const p = useSuggestion
+      ? suggestion
+      : inputPrompt || (!isLoading && !isValidating && suggestion);
 
     const res = await fetch("/api/generateImage", {
       method: "POST",
@@ -43,12 +45,10 @@ export const PromtInput = () => {
       body: JSON.stringify({ prompt: p }),
     });
 
-    const data = await res?.json();
+    const data = await res.json();
 
     if (data.error) {
-      toast.error(data.error, {
-        id: notification,
-      });
+      toast.error(data.error);
     } else {
       toast.success(`Your AI Art has been Generated!`, {
         id: notification,
@@ -63,7 +63,7 @@ export const PromtInput = () => {
     await submitPrompt();
   };
 
-  const loading = isLoading || isValidating;
+  const loading = isValidating || isLoading;
 
   return (
     <div className="m-10">
@@ -94,6 +94,7 @@ export const PromtInput = () => {
         </button>
         <button
           onClick={() => submitPrompt(true)}
+          disabled={isLoading || isValidating}
           type="button"
           className="p-4 bg-gray-400 text-white transition-colors duration-200 font-bold disabled:text-gray-300 disabled:cursor-not-allowed disabled:bg-gray-400"
         >

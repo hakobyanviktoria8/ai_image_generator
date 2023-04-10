@@ -20,7 +20,7 @@ export const Images = () => {
     revalidateOnFocus: false,
   });
 
-  console.log(images);
+  console.log("Images copm ________", images);
 
   return (
     <div>
