@@ -26,9 +26,9 @@ app.http("generateImage", {
 
     // Download the image and return it as a arraybuffer
     const res = await axios.get(image_url, { responseType: "arraybuffer" });
-    const arrayBuffer = res.data;
+    const arrayBuffer = await res.data;
 
-    sasToken = await generateSASToken();
+    const sasToken = await generateSASToken();
 
     const blobServiceClient = new BlobServiceClient(
       `https://${accountName}.blob.core.windows.net?${sasToken}`
